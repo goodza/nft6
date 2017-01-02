@@ -1,5 +1,5 @@
 .app {
-  background-color: green;
+  background-color: yellow;
   height: 50px;
   border: 1px solid blue;
 }
@@ -7,4 +7,32 @@
 .bap {
   background-color: red;
   height: 25px;
+}
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%*/
+
+.textarea1{
+	display: block;
+	width: 196px;
+	height: 196px;
+	position: absolute;
+	top: 302px;
+	left: 110px;
+	border: 1px solid darkblue;
+}
+
+.textarea0{
+	display: block;
+	width: 196px;
+	height: 16px;
+	position: absolute;
+	top: 200px;
+	left: 10px;
+	border: 1px solid darkblue;
+}
+
+.imgGallery{
+	height: 400px;
+	margin-right: 6px;
+	border: 2px solid pink;
 }

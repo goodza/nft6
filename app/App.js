@@ -1,5 +1,10 @@
 import React from 'react';
 import styles from './App.css';
+import {render} from 'react-dom';
+
+import P_Input from './cms.js';
+
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -8,9 +13,9 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <div className={styles.app}>
-        bar
-      </div>
+     <div> 
+      <P_Input />
+     </div> 
     );
   }
 }
