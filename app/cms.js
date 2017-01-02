@@ -16,9 +16,9 @@ class P_Input extends React.Component {
 
     constructor(){
       super();
-      this.state = {
+/*       this.state = {
 
-        data:[
+       data:[
                 {key:1,
                   name:'Baxi MAIN 5 14 F',
                   foto:'https://mdata.yandex.net/i?path=b0531122804_img_id8136776382544069809.jpeg',
@@ -30,7 +30,7 @@ class P_Input extends React.Component {
                   price: 0,
                   param1: 'КПД 92 %'}
               ]
-                   };
+                   };*/
         
                 }
 
