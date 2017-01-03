@@ -13,6 +13,8 @@ const app = express();
 
 
  /****************************************/
+ /****************************************/
+
 
 var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://postgres:marvin@localhost:5432/newnft6?sslmode=require&sslfactory=org.postgresql.ssl.NonValidatingFactory';
@@ -137,13 +139,14 @@ app.delete('/api/models/:key', (req, res, next) => {
 
 /*# # # # # # # # # # # # # # # # #*/
 
-
-
-
-
+ 
 
 
 /****************************************/
+ /****************************************/
+
+
+
 
 if (isDeveloping) {
   const compiler = webpack(config);
