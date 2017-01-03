@@ -55,6 +55,4 @@ class P_Input extends React.Component {
 
 }
 
-
-
 export default P_Input
