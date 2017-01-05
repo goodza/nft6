@@ -18,7 +18,6 @@ const app = express();
 
 var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://postgres:marvin@localhost:5432/newnft6?sslmode=require&sslfactory=org.postgresql.ssl.NonValidatingFactory';
-
 /*&user=postgres&password=marvin*/
 
 pg.connect(connectionString , function(err, client) {
@@ -155,7 +154,7 @@ if (isDeveloping) {
     contentBase: 'src',
     lazy: false,
     watchOptions: {
-        aggregateTimeout: 0.1,
+        aggregateTimeout: 0.001,
         poll: true },
     stats: {
       colors: true,

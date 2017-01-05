@@ -31,8 +31,32 @@
 	border: 1px solid darkblue;
 }
 
-.imgGallery{
-	height: 400px;
+/*SOME CSS MODULES EXP*/
+
+.productGallery{
+	height: 220px;
 	margin-right: 6px;
 	border: 2px solid pink;
 }
+
+
+
+.box{
+	opacity:0.01;
+ 	height: 200px;
+ 	width: 200px; background-color: red;
+ 	transition:opacity 1200ms ease-in;
+ }
+.boxActive{
+	composes:box;
+	opacity: 1;
+}
+/*.example-appear{
+	opacity: 0.01;
+}
+
+.example-appear.example-appear-active{
+	opacity: 1;
+	transition: opacity .5s ease-in;1
+}*/
+/*SOME CSS MODULES EXP*/
