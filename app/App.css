@@ -42,15 +42,18 @@
 
 
 .box{
-	opacity:0.01;
  	height: 200px;
- 	width: 200px; background-color: red;
+ 	width: 600px; background-color: red;
  	transition:opacity 1200ms ease-in;
  }
 .boxActive{
 	composes:box;
-	opacity: 1;
+	width: 100px;
+	background-color: blue;
 }
+
+
+
 /*.example-appear{
 	opacity: 0.01;
 }

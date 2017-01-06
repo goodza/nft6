@@ -2,11 +2,12 @@
 import styles from './App.css';
 
 import React from 'react';
-/*import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import ReactTransitionGroup from 'react-transition-group';*/
+/*import ReactCSSTransitionGroup from 'react-addons-css-transition-group';*/
+/*import ReactTransitionGroup from 'react-transition-group';*/
 import {render, findDOMNode} from 'react-dom';
 import {Provider} from 'react-redux'
 import {createStore} from 'redux';
+import {Motion, spring} from 'react-motion';
 import 'whatwg-fetch';
 /*import TweenMax from 'gsap';*/
 
@@ -62,14 +63,20 @@ class P_Input extends React.Component {
    
       return( <div>
 
-             {data.map((object)=>(object.price))} <br/>
-             {data.map((object)=>(object.param1))}              <br/>
-                        
+       
 
              <br/>
 
-
-              {data.map((object)=>(<img className={styles.productGallery} src={object.foto} />))} 
+              {data.map((object)=>( 
+                      <Motion style={{x: spring(this.state.shouldShowBox ? 500 : 0)}}>
+                            {({x}) =>
+                                <img className={styles.productGallery} src={object.foto} style={{
+                                  WebkitTransform: `translate3d(${x}px, 0, 0)`,
+                                  transform: `translate3d(${x}px, 0, 0)`,
+                                }} />
+                            }
+                     </Motion>     
+              ))}   
 
               <br/>
 
@@ -80,8 +87,23 @@ class P_Input extends React.Component {
                       
               <br/>     
               <br/>
-  
-              <div className={this.state.shouldShowBox ? styles.boxActive : styles.box}/>
+
+                      <Motion style={{x: spring(this.state.shouldShowBox ? 500 : 0)}}>
+                            {({x}) =>
+                            
+                              <div className={styles.box}>
+                                <div className={styles.boxActive} style={{
+                                  WebkitTransform: `translate3d(${x}px, 0, 0)`,
+                                  transform: `translate3d(${x}px, 0, 0)`,
+                                }} />
+                              </div>
+                            }
+                     </Motion>         
+             
+             <br/> 
+            
+                 <div style={{float:`left`,marginRight:`200px`}}> {data.map((object)=>(<ul> {object.price} </ul>))} </div> 
+                 {data.map((object)=>(<ul style={{}}> {object.param1} </ul>))} <br/>
 
               </div>
             )  
