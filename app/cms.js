@@ -22,12 +22,26 @@ class P_Input extends React.Component {
 
     constructor(){
       super();
-      this.state = { shouldShowBox: true };
+      this.state = {name:'',foto:'',
+
+                    shouldShowBox: true };
+
                 }
 
 /*@ @ @ @ @ @*/
 
+  handleSubmit(event) {
+    event.preventDefault();
+    alert(this.state.foto+this.state.name);
+  }
+/*
+  handleChange(e){
+    this.setState(name: e.target.value)
+  }*/
 
+    handleChange = (name, value) => {
+    this.setState(name: value});
+  };
 /*@ @ @ @ @ @*/
 
     componentDidMount(){
@@ -95,14 +109,19 @@ class P_Input extends React.Component {
                             }
                      </Motion>         
                   </div>
-                     <input placeholder='name' className={styles.textarea0}/> 
-                     <input placeholder='foto' className={styles.textarea0} />
+                  
+                  <form onSubmit={this.handleSubmit}>
+                    
+                     <input placeholder='name' value={this.state.name} 
+                      onChange={this.handleChange.bind(this,'name')} className={styles.textarea0}/> 
+                     
+                     <input placeholder='foto' value={this.state.foto}
+                     onChange={this.handleChange.bind(this,'foto')} className={styles.textarea0} />
                      <input placeholder='price' className={styles.textarea0} />
                      <input placeholder='param1' className={styles.textarea0} />
 
-                     <button onClick={this.toggleBox}>
-                                   toggle
-                     </button>
+                     <button type='submit' onClick={this.toggleBox}>toggle</button>
+                  </form>                     
                    
              <br/> 
             

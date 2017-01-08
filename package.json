@@ -29,12 +29,11 @@
     "autoprefixer": "^6.6.1",
     "babel-cli": "^6.4.0",
     "pg": "^6.1.2",
-    "react": "^15.4.0",
+    "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.0",
     "react-dom": "^15.4.0",
     "react-redux": "^5.0.1",
-    "redux": "^3.6.0",
-    "webpack-hot-middleware": "^2.15.0"
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
@@ -72,6 +71,6 @@
     "style-loader": "^0.12.4",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.2.0"
+    "webpack-hot-middleware": "^2.15.0"
   }
 }
