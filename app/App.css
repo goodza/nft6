@@ -23,9 +23,9 @@
 
 .textarea0{
 	display: block;
+	margin-bottom: 10px;
 	width: 196px;
 	height: 16px;
-	position: absolute;
 	top: 200px;
 	left: 10px;
 	border: 1px solid darkblue;
@@ -54,12 +54,3 @@
 
 
 
-/*.example-appear{
-	opacity: 0.01;
-}
-
-.example-appear.example-appear-active{
-	opacity: 1;
-	transition: opacity .5s ease-in;1
-}*/
-/*SOME CSS MODULES EXP*/

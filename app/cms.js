@@ -78,14 +78,11 @@ class P_Input extends React.Component {
 
               <br/>
 
-              <button className="toggle-btn"
-                onClick={this.toggleBox}>
-                   toggle
-              </button>
+              
                       
               <br/>     
               <br/>
-
+                  <div style={{float:`right`}}>
                       <Motion style={{x: spring(this.state.shouldShowBox ? 500 : 0)}}>
                             {({x}) =>
                             
@@ -97,7 +94,16 @@ class P_Input extends React.Component {
                               </div>
                             }
                      </Motion>         
-             
+                  </div>
+                     <input placeholder='name' className={styles.textarea0}/> 
+                     <input placeholder='foto' className={styles.textarea0} />
+                     <input placeholder='price' className={styles.textarea0} />
+                     <input placeholder='param1' className={styles.textarea0} />
+
+                     <button onClick={this.toggleBox}>
+                                   toggle
+                     </button>
+                   
              <br/> 
             
                  <div style={{float:`left`,marginRight:`200px`}}> {data.map((object)=>(<ul> {object.price} </ul>))} </div> 
