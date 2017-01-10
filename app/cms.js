@@ -18,22 +18,22 @@ import 'whatwg-fetch';
 
 /*@ @ @ @ @ @ @ @ @ @ @*/
 
-var iJSON = {key:0,name:'',foto:'', price:'', param1:''};
+var iJSON = {key:0,name:'',foto:'', price:0, param1:''};
 
 class P_Input extends React.Component {
   
 /*@ @ @ @ @ @*/
 
-    constructor(){
+ constructor(){
       super();
 
       this.fetchData = this.fetchData.bind(this);
       this.toggleBox = this.toggleBox.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.deleteDownside = this.deleteDownside.bind(this);
 
-      this.state = {key:0,name:'',foto:'', price:'', param1:'',
+      this.state = {key:0,name:'',foto:'', price:0, param1:'',
                     
                     shouldShowBox: true };
 
@@ -87,7 +87,7 @@ class P_Input extends React.Component {
 
     toggleBox =()=> {
         
-        this.fetchData(this);
+        this.fetchData.bind(this)();
         this.setState({shouldShowBox: !this.state.shouldShowBox});
     };
 
