@@ -16,14 +16,17 @@ import 'whatwg-fetch';
 
 /*@ @ @ @ @ @ @ @ @ @ @*/
 
+var itemsJSON = {key:0,name:'',foto:'', price:'', param1:''};
+
 class P_Input extends React.Component {
   
 /*@ @ @ @ @ @*/
 
     constructor(){
       super();
-      this.state = {name:'',foto:'',
-
+      this.fetchData();
+      this.state = {key:0,name:'',foto:'', price:'', param1:'',
+                    
                     shouldShowBox: true };
 
                 }
@@ -32,35 +35,44 @@ class P_Input extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert(this.state.foto+this.state.name);
+    const iJSON = {key:this.state.key, name:this.state.name, foto:this.state.foto, price:this.state.price, param1:this.state.param1};
+    fetch('/api/models/', 
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: iJSON 
+    });   
+    
   }
-/*
-  handleChange(e){
-    this.setState(name: e.target.value)
-  }*/
 
-    handleChange = (name, value) => {
-    this.setState(name: value});
+  handleChange(e){  
+      console.log(e.target.name);
+      this.setState({[e.target.name]: e.target.value})
   };
 /*@ @ @ @ @ @*/
 
-    componentDidMount(){
+    componentWillMount(){
       
-
-      fetch('/api/models').then((response) => {
-       return response.json().then((json) => {
-         
-          this.setState({data:json})
-            
-              })
-
-      })
 
     }
 
+
 /*@ @ @ @ @ @*/
 
-    toggleBox = () => {
+  fetchData() {
+
+     fetch('/api/models/').then((response) => {
+       return response.json().then((json) => {
+         
+          this.setState({key:json[json.length-1]+1});
+          this.setState({data:json}); 
+                                             })
+      })
+  }
+
+/*@ @ @ @ @ @*/
+
+    toggleBox (){
         
         this.setState({
           shouldShowBox: !this.state.shouldShowBox});
@@ -70,12 +82,9 @@ class P_Input extends React.Component {
 /*@ @ @ @ @ @*/
     render()
     { 
-
       const data = this.state.data;
    
       return( <div>
-
-       
 
              <br/>
 
@@ -91,8 +100,6 @@ class P_Input extends React.Component {
               ))}   
 
               <br/>
-
-              
                       
               <br/>     
               <br/>
@@ -110,17 +117,23 @@ class P_Input extends React.Component {
                      </Motion>         
                   </div>
                   
-                  <form onSubmit={this.handleSubmit}>
+                  <form onSubmit={this.handleSubmit.bind(this)} onChange={this.handleChange.bind(this)}>
                     
-                     <input placeholder='name' value={this.state.name} 
-                      onChange={this.handleChange.bind(this,'name')} className={styles.textarea0}/> 
-                     
-                     <input placeholder='foto' value={this.state.foto}
-                     onChange={this.handleChange.bind(this,'foto')} className={styles.textarea0} />
-                     <input placeholder='price' className={styles.textarea0} />
-                     <input placeholder='param1' className={styles.textarea0} />
+                     <input placeholder='key' name='key'  className={styles.textarea0}/> 
+                     <input placeholder='name' name='name' className={styles.textarea0}/> 
+                     <input placeholder='foto' name='foto' className={styles.textarea0}/> 
+                     <input placeholder='price' name='price' className={styles.textarea0}/> 
+                     <input placeholder='param1' name='param1' className={styles.textarea0}/> 
 
                      <button type='submit' onClick={this.toggleBox}>toggle</button>
+                     
+                     <br/>
+                     <label style={{marginLeft:`20px`}}>KEY:{this.state.key}</label> <br/>
+                     <label style={{marginLeft:`20px`}}>NAME:{this.state.name}</label> <br/>
+                     <label style={{marginLeft:`20px`}}>FOTO:{this.state.foto}</label> <br/>
+                     <label style={{marginLeft:`20px`}}>PRICE:{this.state.price}</label> <br/>
+                     <label style={{marginLeft:`20px`}}>PARAM1:{this.state.param1}</label> <br/>
+
                   </form>                     
                    
              <br/> 
@@ -137,3 +150,7 @@ class P_Input extends React.Component {
 }
 
 export default P_Input
+
+
+ /*curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"key":"3","name":"4","foto":"xx","price":"12","param1":"dd"}'  http://localhost:3333/api/models/*/
+ /*curl -v -H "Content-type: application/json" -X POST -d '{"key":"3","name":"Baxi SLIM 1.300 iN","foto":"https://mdata.yandex.net/i?path=b0526223915_img_id4716976515662803319.jpeg&size=5","price":"46640","param1":"КПД 90 %"}'  http://localhost:3333/api/models/*/

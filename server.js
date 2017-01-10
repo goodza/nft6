@@ -10,7 +10,7 @@ const config = require('./webpack.config.js');
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3333 : process.env.PORT;
 const app = express();
-
+const bodyParser = require('body-parser');
 
  /****************************************/
  /****************************************/
@@ -68,10 +68,14 @@ app.get('/api/models', (req, res, next) => {
 });
 //GET END
 
-//POST BEGIN
-app.post('/api/models/:key/:name/:param1', (req, res, next) => {
 
-  console.log('POST POST POST'+req.params.name);  
+//POST BEGIN
+app.use(bodyParser.json({ type: 'application/json' }))
+
+
+app.post('/api/models/', (req, res, next) => {
+
+  console.log('POST POST POST'+req.body.foto);  
   const results = [];
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
@@ -84,9 +88,9 @@ app.post('/api/models/:key/:name/:param1', (req, res, next) => {
     // SQL Query > INSERT
 
     const query = client.query(
-      `INSERT INTO kataloggg (key,name,param1) VALUES (${req.params.key},
-        '${req.params.name}',
-        '${req.params.param1}');`);
+      `INSERT INTO kataloggg (key,name,foto,price,param1) VALUES ('${req.body.key}',
+        '${req.body.name}', '${req.body.foto}', '${req.body.price}',
+        '${req.body.param1}');`);
 
     // Stream results back one row at a time
     query.on('row', (row) => {
