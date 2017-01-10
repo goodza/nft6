@@ -144,7 +144,7 @@ class P_Input extends React.Component {
                      <input placeholder='key' name='key' value={this.state.key}  className={styles.textarea0}/> 
                      <input placeholder='name' name='name' className={styles.textarea0}/> 
                      <input placeholder='foto' name='foto' className={styles.textarea0}/> 
-                     <input placeholder='price' name='price' className={styles.textarea0}/> 
+                     <input placeholder='price' name='price' value={this.state.price} className={styles.textarea0}/> 
                      <input placeholder='param1' name='param1' className={styles.textarea0}/> 
 
                      <button type='submit' onClick={this.toggleBox}>toggle</button>
