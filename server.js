@@ -75,7 +75,7 @@ app.use(bodyParser.json({ type: 'application/json' }))
 
 app.post('/api/models/', (req, res, next) => {
 
-  console.log('POST POST POST'+req.body.foto);  
+  console.log('POST POST POST: '+req.body.name);  
   const results = [];
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
@@ -108,7 +108,7 @@ app.post('/api/models/', (req, res, next) => {
 //DELETE BEGIN
 app.delete('/api/models/:key', (req, res, next) => {
   const results = [];
-   console.log('DELETE DELETE DELETE');  
+   console.log('DELETE DELETE DELETE: '+req.params.key);  
   // Grab data from the URL parameters
   const key = req.params.key;
   // Get a Postgres client from the connection pool
