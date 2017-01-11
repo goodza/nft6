@@ -18,6 +18,15 @@ const bodyParser = require('body-parser');
 
 var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://postgres:marvin@localhost:5432/newnft6?sslmode=require&sslfactory=org.postgresql.ssl.NonValidatingFactory';
+var configPostgre = {
+  user: 'postgres', //env var: PGUSER
+  database: 'newnft6', //env var: PGDATABASE
+  password: 'marvin', //env var: PGPASSWORD
+  host: 'localhost', // Server hosting the postgres database
+  port: 5432, //env var: PGPORT
+  max: 10, // max number of clients in the pool
+  idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
+};
 /*&user=postgres&password=marvin*/
 
 
@@ -29,28 +38,41 @@ var connectionString = process.env.DATABASE_URL || 'postgres://postgres:marvin@l
 //GET BEGIN
 app.get('/api/models', (req, res, next) => {
 
-  console.log('GET GET GET')  
-  const results = [];
+  console.log('GET GET GET'); 
+  var results = [];
   // Get a Postgres client from the connection pool
-  pg.connect(connectionString, (err, client, done) => {
+
+    var pool = new pg.Pool(configPostgre);
+    
+    pool.connect(function(err, client, done) {
+
     // Handle connection errors
     if(err) {
-      done();
-      console.log(err);
-      return res.status(500).json({success: false, data: err});
-    }
+                done();
+                return console.error('ERROR FETCHING DAMN',err);
+             }
     // SQL Query > Select Data
-    const query = client.query('SELECT key,name,foto,price,param1 FROM kataloggg');
-    // Stream results back one row at a time
-    query.on('row', (row) => {
-      results.push(row);
-    });
-    // After all data is returned, close connection and return results
-    query.on('end', () => {
-      done();
-      return res.json(results);
-    });
-  });
+     client.query('SELECT key,name,foto,price,param1 FROM kataloggg', (err,result) =>{
+                                                                      done();
+                                                                      if(err) throw err;
+                                                                      
+                                                                      // Stream results back one row at a time
+                                                                      pool.on('row', (result) => {
+                                                                        results.push(result);
+                                                                      });
+                                                                      // After all data is returned, close connection and return results
+                                                                      pool.on('end', () => {
+                                                                        done();
+                                                                        return res.json(results);
+                                                                      });
+
+
+                                                                                     }
+                 );
+
+
+        });
+            
 });
 //GET END
 

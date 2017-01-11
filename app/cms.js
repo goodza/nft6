@@ -182,4 +182,6 @@ export default P_Input
  /*     curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"key":"3","name":"4","foto":"xx","price":"12","param1":"dd"}'  http://localhost:3333/api/models/*/
  /*     curl -v -H "Content-type: application/json" -X POST -d '{"key":"3","name":"Baxi SLIM 1.300 iN","foto":"https://mdata.yandex.net/i?path=b0526223915_img_id4716976515662803319.jpeg&size=5","price":"46640","param1":"КПД 90 %"}'  http://localhost:3333/api/models/    */ 
 
+// text/plain
+
  /*curl -i -H "Accept: application/json" -X DELETE http://localhost:3333/api/models/5*/
