@@ -52,26 +52,33 @@ app.get('/api/models', (req, res, next) => {
                 return console.error('ERROR FETCHING DAMN',err);
              }
     // SQL Query > Select Data
-     client.query('SELECT key,name,foto,price,param1 FROM kataloggg', (err,result) =>{
+    var c = client.query('SELECT key,name,foto,price,param1 FROM kataloggg', (err,result) =>{
                                                                       done();
-                                                                      if(err) throw err;
+                                                                      if(err) throw err});
                                                                       
                                                                       // Stream results back one row at a time
-                                                                      pool.on('row', (result) => {
+                                                                      c.on('row', (result) => {
                                                                         results.push(result);
                                                                       });
                                                                       // After all data is returned, close connection and return results
-                                                                      pool.on('end', () => {
+                                                                      c.on('end', () => {
                                                                         done();
                                                                         return res.json(results);
                                                                       });
 
 
-                                                                                     }
-                 );
-
 
         });
+        
+        pool.on('error', function (err, client) {
+        // if an error is encountered by a client while it sits idle in the pool
+        // the pool itself will emit an error event with both the error and
+        // the client which emitted the original error
+        // this is a rare occurrence but can happen if there is a network partition
+        // between your application and the database, the database restarts, etc.
+        // and so you might want to handle it and at least log it out
+        console.error('idle client error', err.message, err.stack)
+                                                })
             
 });
 //GET END

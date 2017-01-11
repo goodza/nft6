@@ -52,7 +52,8 @@ class P_Input extends React.Component {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify(iJSON)
-                          }).then((response)=> {this.setState({disSubmit:false}); this.fetchData(); this.setState({shouldShowBox: !this.state.shouldShowBox}); });  
+                          }).then((response)=> {this.fetchData(); this.setState({shouldShowBox: !this.state.shouldShowBox}); });  
+    
     
   }
 
@@ -79,7 +80,10 @@ class P_Input extends React.Component {
        return response.json().then((json) => {
           console.log('FETCHING');    
           this.setState({key:json[json.length-1].key+1});
-          this.setState({data:json}); 
+          this.setState({data:json},
+            this.setState({disSubmit:false}),
+            this.setState({disDelete:false})
+                        ); 
                                              })
       })
 
@@ -91,7 +95,7 @@ class P_Input extends React.Component {
 
      this.setState({disDelete:true});
      fetch('/api/models/'+(this.state.key-1), {method: 'DELETE'}).then((response) =>
-           { this.setState({disDelete:false}); this.fetchData() }
+           { this.fetchData() }
       );  
 
     }
