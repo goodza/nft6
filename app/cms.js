@@ -28,16 +28,16 @@ class P_Input extends React.Component {
       super();
 
       this.fetchData = this.fetchData.bind(this);
-      this.toggleBox = this.toggleBox.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.deleteDownside = this.deleteDownside.bind(this);
 
       this.state = {key:0,name:'',foto:'', price:0, param1:'',
                     
+                    disSubmit: false,
+                    disDelete: false,
                     shouldShowBox: true };
 
-      this.fetchData();
                 }
 
 /*@ @ @ @ @ @*/
@@ -47,33 +47,37 @@ class P_Input extends React.Component {
     iJSON = {key:this.state.key, name:this.state.name, foto:this.state.foto, price:this.state.price, param1:this.state.param1};
     console.log('iJSON:');
     console.log(iJSON);
-    fetch('/api/models/', 
-    {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(iJSON)
-    });   
+    fetch('/api/models/', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(iJSON)
+                          });   
     
+    this.setState({shouldShowBox: !this.state.shouldShowBox});
+    this.fetchData();
   }
+
+/*@ @ @ @ @ @*/
 
   handleChange(e){  
       console.log(e.target.name);
       this.setState({[e.target.name]: e.target.value})
   };
+
 /*@ @ @ @ @ @*/
 
-    componentWillMount(){
-      
+  componentWillMount(){
+
+      this.fetchData();
 
     }
-
 
 
 /*@ @ @ @ @ @*/
 
   fetchData = () =>{
 
-     fetch('/api/models/').then((response) => {
+     fetch('/api/models/', {method:'GET'}).then((response) => {
        return response.json().then((json) => {
           console.log('FETCHING');    
           this.setState({key:json[json.length-1].key+1});
@@ -85,20 +89,11 @@ class P_Input extends React.Component {
 
 /*@ @ @ @ @ @*/
 
-    toggleBox =()=> {
-        
-        this.fetchData.bind(this)();
-        this.setState({shouldShowBox: !this.state.shouldShowBox});
-    };
-
-/*@ @ @ @ @ @*/
-
     deleteDownside = () => {
 
-     fetch('/api/models/'+(this.state.key-1), 
-      {
-        method: 'DELETE'
-      });  
+     fetch('/api/models/'+(this.state.key-1), {method: 'DELETE'}).then((response) =>
+           {alert(response)}
+      );  
 
     }
 
@@ -141,13 +136,13 @@ class P_Input extends React.Component {
                   
                   <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
                     
-                     <input placeholder='key' name='key' value={this.state.key}  className={styles.textarea0}/> 
+                     <input placeholder='new key' name='key' value={this.state.key}  className={styles.textarea0}/> 
                      <input placeholder='name' name='name' className={styles.textarea0}/> 
                      <input placeholder='foto' name='foto' className={styles.textarea0}/> 
                      <input placeholder='price' name='price' value={this.state.price} className={styles.textarea0}/> 
                      <input placeholder='param1' name='param1' className={styles.textarea0}/> 
 
-                     <button type='submit' onClick={this.toggleBox}>toggle</button>
+                     <button type='submit' disabled={this.state.disSubmit}>toggle</button>
                      
                      
                      <br/>
@@ -160,7 +155,7 @@ class P_Input extends React.Component {
                   </form>                
 
                     <button onClick={this.fetchData}>fetch</button>
-                    <button onClick={this.deleteDownside}>delete</button>
+                    <button disabled={this.state.disDelete} onClick={this.deleteDownside}>delete</button>
 
                   <div style={{color:`darkblue`}}> 
                      <input placeholder='key' name='key' value={this.state.key}  className={styles.textarea0}/> 

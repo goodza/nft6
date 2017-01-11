@@ -20,20 +20,6 @@ var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://postgres:marvin@localhost:5432/newnft6?sslmode=require&sslfactory=org.postgresql.ssl.NonValidatingFactory';
 /*&user=postgres&password=marvin*/
 
-pg.connect(connectionString , function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
-
-  client
-    .query('SELECT name, param1 FROM kataloggg')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
-});
-
-
-
-
 
 
 /*# # # # # # # # # # # # # # # # #*/
@@ -120,20 +106,9 @@ app.delete('/api/models/:key', (req, res, next) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Delete Data
-    client.query('DELETE FROM kataloggg WHERE key=($1)', [key]);
-    // SQL Query > Select Data
-
-    const query = client.query('SELECT key FROM kataloggg');
-
-    // Stream results back one row at a time
-    query.on('row', (row) => {
-      results.push(row);
-    });
-    // After all data is returned, close connection and return results
-    query.on('end', () => {
-      done();
-      return res.json(results);
-    });
+    client.query('DELETE FROM kataloggg WHERE key=($1)', [key]).on('end', ()=>
+      {done(); return "OK"});
+   
   });
 });
 //DELETE END
