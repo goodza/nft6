@@ -39,7 +39,13 @@
 	border: 2px solid pink;
 }
 
-
+.buttonDis{
+	background-color: white;
+}
+.buttonEnable{
+	background-color: green;
+	transition: all 200ms ease-in;
+}
 
 .box{
  	height: 200px;

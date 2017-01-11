@@ -44,6 +44,7 @@ class P_Input extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({disSubmit:true});
     iJSON = {key:this.state.key, name:this.state.name, foto:this.state.foto, price:this.state.price, param1:this.state.param1};
     console.log('iJSON:');
     console.log(iJSON);
@@ -51,10 +52,8 @@ class P_Input extends React.Component {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify(iJSON)
-                          });   
+                          }).then((response)=> {this.setState({disSubmit:false}); this.fetchData(); this.setState({shouldShowBox: !this.state.shouldShowBox}); });  
     
-    this.setState({shouldShowBox: !this.state.shouldShowBox});
-    this.fetchData();
   }
 
 /*@ @ @ @ @ @*/
@@ -90,8 +89,9 @@ class P_Input extends React.Component {
 
     deleteDownside = () => {
 
+     this.setState({disDelete:true});
      fetch('/api/models/'+(this.state.key-1), {method: 'DELETE'}).then((response) =>
-           {alert(response)}
+           { this.setState({disDelete:false}); this.fetchData() }
       );  
 
     }
@@ -141,7 +141,7 @@ class P_Input extends React.Component {
                      <input placeholder='price' name='price' value={this.state.price} className={styles.textarea0}/> 
                      <input placeholder='param1' name='param1' className={styles.textarea0}/> 
 
-                     <button type='submit' disabled={this.state.disSubmit}>toggle</button>
+                     <button type='submit' className={this.state.disSubmit ? styles.buttonDis : styles.buttonEnable} disabled={this.state.disSubmit}>submit</button>
                      
                      
                      <br/>
@@ -153,8 +153,7 @@ class P_Input extends React.Component {
 
                   </form>                
 
-                    <button onClick={this.fetchData}>fetch</button>
-                    <button disabled={this.state.disDelete} onClick={this.deleteDownside}>delete</button>
+                    <button disabled={this.state.disDelete} className={this.state.disDelete ? styles.buttonDis : styles.buttonEnable} onClick={this.deleteDownside}>delete</button>
 
                   <div style={{color:`darkblue`}}> 
                      <input placeholder='key' name='key' value={this.state.key}  className={styles.textarea0}/> 
@@ -182,3 +181,5 @@ export default P_Input
 
  /*     curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"key":"3","name":"4","foto":"xx","price":"12","param1":"dd"}'  http://localhost:3333/api/models/*/
  /*     curl -v -H "Content-type: application/json" -X POST -d '{"key":"3","name":"Baxi SLIM 1.300 iN","foto":"https://mdata.yandex.net/i?path=b0526223915_img_id4716976515662803319.jpeg&size=5","price":"46640","param1":"КПД 90 %"}'  http://localhost:3333/api/models/    */ 
+
+ /*curl -i -H "Accept: application/json" -X DELETE http://localhost:3333/api/models/5*/

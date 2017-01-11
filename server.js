@@ -107,7 +107,7 @@ app.delete('/api/models/:key', (req, res, next) => {
     }
     // SQL Query > Delete Data
     client.query('DELETE FROM kataloggg WHERE key=($1)', [key]).on('end', ()=>
-      {done(); return "OK"});
+      {done(); return res.json({status:"success"}) });
    
   });
 });
