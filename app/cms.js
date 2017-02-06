@@ -1,4 +1,3 @@
-/*4276 4000 1595 3897*/
 
 import styles from './App.css';
 
@@ -28,6 +27,7 @@ class P_Input extends React.Component {
       super();
 
       this.fetchData = this.fetchData.bind(this);
+
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.deleteDownside = this.deleteDownside.bind(this);
@@ -66,9 +66,10 @@ class P_Input extends React.Component {
 
 /*@ @ @ @ @ @*/
 
-  componentWillMount(){
 
-      this.fetchData();
+  componentDidMount(){
+
+    setInterval(this.fetchData,3000);
 
     }
 
@@ -76,7 +77,7 @@ class P_Input extends React.Component {
 
   fetchData = () =>{
 
-     fetch('/api/models/', {method:'GET'}).then((response) => {
+  fetch('/api/models/', {method:'GET'}).then((response) => {
        return response.json().then((json) => {
           console.log('FETCHING');    
           this.setState({key:json[json.length-1].key+1});
@@ -85,7 +86,7 @@ class P_Input extends React.Component {
             this.setState({disDelete:false})
                         ); 
                                              })
-      })
+      });
 
   }
 
@@ -103,7 +104,8 @@ class P_Input extends React.Component {
 /*@ @ @ @ @ @*/
     render()
     { 
-     
+      
+
       return( <div>
 
              <br/>
@@ -123,7 +125,7 @@ class P_Input extends React.Component {
                       
               <br/>     
               <br/>
-                  <div style={{float:`right`}}>
+                  <div style={{float:`right`, marginBottom:`40px`}}>
                       <Motion style={{x: spring(this.state.shouldShowBox ? 0 : 500)}}>
                             {({x}) =>
                             
@@ -136,7 +138,7 @@ class P_Input extends React.Component {
                             }
                      </Motion>         
                   </div>
-                  
+                
                   <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
                     
                      <input placeholder='new key' name='key' value={this.state.key}  className={styles.textarea0}/> 

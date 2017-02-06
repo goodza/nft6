@@ -61,6 +61,7 @@
     "minimatch": "^3.0.3",
     "mocha": "^2.3.3",
     "mocha-jsdom": "^1.0.0",
+    "pg": "^6.1.2",
     "postcss-loader": "^0.6.0",
     "react-addons-test-utils": "^15.4.0",
     "react-motion": "^0.4.7",

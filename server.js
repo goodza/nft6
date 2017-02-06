@@ -103,9 +103,8 @@ app.post('/api/models/', (req, res, next) => {
     // SQL Query > INSERT
 
     const query = client.query(
-      `INSERT INTO kataloggg (key,name,foto,price,param1) VALUES ('${req.body.key}',
-        '${req.body.name}', '${req.body.foto}', '${req.body.price}',
-        '${req.body.param1}');`);
+      `INSERT INTO kataloggg (key,name,foto,param1,price) VALUES ('${req.body.key}',
+        '${req.body.name}', '${req.body.foto}','${req.body.param1}', '${req.body.price}');`);
 
     // Stream results back one row at a time
     query.on('row', (row) => {

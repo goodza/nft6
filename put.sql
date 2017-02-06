@@ -1,0 +1,1 @@
+﻿INSERT INTO kataloggg (key,name,foto,param1,price) VALUES (1,'Baxi','none','null param','888');
